@@ -33,7 +33,7 @@ public class Country {
     @Column(name = "coordinates")
     private ArrayList<Integer> coords;
 
-   @OneToMany(mappedBy = "airport")
+   @OneToMany(mappedBy = "country")
    @JsonBackReference
    @Cascade(org.hibernate.annotations.CascadeType.DELETE)
    private List<Airport> airports;
@@ -48,7 +48,14 @@ public class Country {
         this.airports = new ArrayList<>();
     }
 
-    public Country(){
+    public Country(String name, String flag, String region) {
+        this.name = name;
+        this.flag = flag;
+        this.region = region;
+    }
+
+
+   public Country(){
 
     }
 

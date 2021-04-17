@@ -39,6 +39,13 @@ public class Flight {
         this.departureAirport = departureAirport;
     }
 
+    public Flight (String airline, Airport arrivalAirport, Airport departureAirport){
+        this.airline = airline;
+        this.arrivalAirport = arrivalAirport;
+        this.departureAirport = departureAirport;
+
+    }
+
     public Flight() {
 
     }
