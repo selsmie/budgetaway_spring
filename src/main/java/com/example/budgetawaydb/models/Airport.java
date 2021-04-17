@@ -18,7 +18,7 @@ public class Airport {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(mappedBy = "airport")
+    @OneToMany(mappedBy = "departureAirport")
     @Cascade(org.hibernate.annotations.CascadeType.DELETE)
     @JsonBackReference
     private List<Flight> flights;
