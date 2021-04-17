@@ -12,6 +12,7 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
 import javax.xml.crypto.Data;
+import java.util.ArrayList;
 
 @Component
 public class DataLoader implements ApplicationRunner {
@@ -30,7 +31,9 @@ public class DataLoader implements ApplicationRunner {
     }
 
     public void run(ApplicationArguments args) {
-        Country country1 = new Country("England", "Flag", "Europe");
+        ArrayList<String> englandLanguages = new ArrayList<String>();
+        englandLanguages.add("spanish");
+        Country country1 = new Country("England", "Flag", "Europe", englandLanguages);
         countryRepository.save(country1);
 
         Airport airport1 = new Airport("Leeds Bradford", country1);

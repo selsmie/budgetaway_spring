@@ -49,10 +49,11 @@ public class Country {
         this.airports = new ArrayList<>();
     }
 
-    public Country(String name, String flag, String region) {
+    public Country(String name, String flag, String region, ArrayList<String> languages) {
         this.name = name;
         this.flag = flag;
         this.region = region;
+        this.languages = languages;
     }
 
 
