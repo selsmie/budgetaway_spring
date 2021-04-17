@@ -1,6 +1,7 @@
 package com.example.budgetawaydb.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
@@ -20,6 +21,7 @@ public class Airport {
 
     @OneToMany(mappedBy = "departureAirport")
     @Cascade(org.hibernate.annotations.CascadeType.DELETE)
+//    @JsonIgnoreProperties({"departureAirport"})
     @JsonBackReference
     private List<Flight> flights;
 
