@@ -44,5 +44,10 @@ public class DataLoader implements ApplicationRunner {
 
         Flight flight1 = new Flight("British Airways", airport1, airport2);
         flightRepository.save(flight1);
+
+        ArrayList<String> randomLanguages = new ArrayList<String>();
+        randomLanguages.add("random");
+        Country country2 = new Country("England", "Flag", "Europe", randomLanguages);
+        countryRepository.save(country2);
     }
 }

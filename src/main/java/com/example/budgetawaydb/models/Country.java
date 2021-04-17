@@ -125,4 +125,11 @@ public class Country {
         this.id = id;
     }
 
+    public Country checkLanguage(String searchLanguage){
+        if (this.getLanguages().contains(searchLanguage)) {
+            return this;
+        }
+        return null;
+    }
+
 }

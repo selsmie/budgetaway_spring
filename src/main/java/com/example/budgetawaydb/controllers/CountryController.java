@@ -1,7 +1,9 @@
 package com.example.budgetawaydb.controllers;
 
+import com.example.budgetawaydb.models.Country;
 import com.example.budgetawaydb.repositories.CountryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.util.Streamable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,7 +32,10 @@ public class CountryController {
             return new ResponseEntity(countryRepository.findByRegion(region), HttpStatus.OK);
         }
         if (language != null) {
-            return new ResponseEntity(countryRepository.findByInLanguages(language), HttpStatus.OK);
+            List<Country> countries = countryRepository.findAll();
+            List<Country> filtered = new ArrayList<>();
+            countries.forEach(country -> filtered.add(country.checkLanguage(language)));
+            return new ResponseEntity(filtered, HttpStatus.OK);
         }
         return new ResponseEntity(countryRepository.findAll(), HttpStatus.OK);
     }
