@@ -1,18 +1,35 @@
 package com.example.budgetawaydb.models;
 
+import javax.persistence.*;
 import java.util.Date;
 
+@Entity
+@Table(name = "flights")
 public class Flight {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
 
+    @Column(name = "airline")
     private String airline;
 
+    @Column(name = "arrivalTime")
     private Date arrivalTime;
 
+    @Column(name = "departureTime")
     private Date departureTime;
 
+    @Column(name = "price")
     private double price;
+
+    @ManyToOne
+    @JoinColumn(name = "arrivalAirport_id", nullable = false)
+    private Airport arrivalAirport;
+
+    @ManyToOne
+    @JoinColumn(name = "departureAirport_id", nullable = false)
+    private Airport departureAirport;
 
     public Flight(Long id, String airline, Date arrivalTime, Date departureTime) {
         Id = id;
