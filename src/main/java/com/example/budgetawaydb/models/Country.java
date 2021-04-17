@@ -4,6 +4,16 @@ import java.util.ArrayList;
 
 public class Country {
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    private Long id;
+
     private String name;
 
     private String flag;
@@ -16,9 +26,10 @@ public class Country {
 
     private ArrayList<int> coords;
 
-    private ArrayList<String> airports;
+    private ArrayList<Airport> airports;
 
-    public Country(String name, String flag, String region, ArrayList<String> currencies, ArrayList<String> languages, ArrayList<int> coords) {
+    public Country(Long id, String name, String flag, String region, ArrayList<String> currencies, ArrayList<String> languages, ArrayList<int> coords) {
+        this.id = id;
         this.name = name;
         this.flag = flag;
         this.region = region;
