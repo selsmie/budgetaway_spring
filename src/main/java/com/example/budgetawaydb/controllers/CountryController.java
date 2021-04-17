@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -15,7 +16,19 @@ public class CountryController {
     CountryRepository countryRepository;
 
     @GetMapping(value = "/countries")
-    public ResponseEntity getAllCountries(){
+    public ResponseEntity getAllCountriesAndFilters(
+            @RequestParam(required = false, name="region") String region,
+            @RequestParam(required = false, name="language") String language
+            ){
+        if (region != null && language != null) {
+            return new ResponseEntity(countryRepository.findByRegionAndLanguage(region, language), HttpStatus.OK);
+        }
+        if (region != null) {
+            return new ResponseEntity(countryRepository.findByRegion(region), HttpStatus.OK);
+        }
+        if (language != null) {
+            return new ResponseEntity(countryRepository.findByLanguage(language), HttpStatus.OK);
+        }
         return new ResponseEntity(countryRepository.findAll(), HttpStatus.OK);
     }
 
