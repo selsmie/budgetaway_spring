@@ -1,20 +1,36 @@
 package com.example.budgetawaydb.models;
 
-import javax.persistence.Id;
-import java.util.ArrayList;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import org.hibernate.annotations.Cascade;
 
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
+@Table(name = "airports")
 public class Airport {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
 
+    @Column(name = "name")
     private String name;
 
-    private ArrayList<String> flights;
+    @OneToMany(mappedBy = "airports")
+    @Cascade(org.hibernate.annotations.CascadeType.DELETE)
+    @JsonBackReference
+    private List<Flight> flights;
 
-    public Airport(String name, Long id) {
+    @ManyToOne
+    @JoinColumn(name = "country_id", nullable = false)
+    private Country country;
+
+    public Airport(String name, Country country) {
         this.name = name;
-        Id = id;
-        this.flights = flights;
+        this.flights = new ArrayList<>();
+        this.country = country;
     }
 
     public Airport() {
@@ -37,11 +53,19 @@ public class Airport {
         Id = id;
     }
 
-    public ArrayList<String> getFlights() {
+    public List<Flight> getFlights() {
         return flights;
     }
 
-    public void setFlights(ArrayList<String> flights) {
+    public void setFlights(List<Flight> flights) {
         this.flights = flights;
+    }
+
+    public Country getCountry() {
+        return country;
+    }
+
+    public void setCountry(Country country) {
+        this.country = country;
     }
 }

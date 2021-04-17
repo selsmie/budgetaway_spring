@@ -31,11 +31,12 @@ public class Flight {
     @JoinColumn(name = "departureAirport_id", nullable = false)
     private Airport departureAirport;
 
-    public Flight(Long id, String airline, Date arrivalTime, Date departureTime) {
-        Id = id;
+    public Flight(String airline, Date arrivalTime, Date departureTime, Airport arrivalAirport, Airport departureAirport) {
         this.airline = airline;
         this.arrivalTime = arrivalTime;
         this.departureTime = departureTime;
+        this.arrivalAirport = arrivalAirport;
+        this.departureAirport = departureAirport;
     }
 
     public Flight() {
@@ -80,5 +81,21 @@ public class Flight {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public Airport getArrivalAirport() {
+        return arrivalAirport;
+    }
+
+    public void setArrivalAirport(Airport arrivalAirport) {
+        this.arrivalAirport = arrivalAirport;
+    }
+
+    public Airport getDepartureAirport() {
+        return departureAirport;
+    }
+
+    public void setDepartureAirport(Airport departureAirport) {
+        this.departureAirport = departureAirport;
     }
 }

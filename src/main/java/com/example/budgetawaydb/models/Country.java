@@ -5,6 +5,7 @@ import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "countries")
@@ -30,22 +31,21 @@ public class Country {
     private ArrayList<String> languages;
 
     @Column(name = "coordinates")
-    private ArrayList<int> coords;
+    private ArrayList<Integer> coords;
 
    @OneToMany(mappedBy = "airport")
    @JsonBackReference
    @Cascade(org.hibernate.annotations.CascadeType.DELETE)
-    private ArrayList<Airport> airports;
+   private List<Airport> airports;
 
-    public Country(Long id, String name, String flag, String region, ArrayList<String> currencies, ArrayList<String> languages, ArrayList<int> coords) {
-        this.id = id;
+    public Country(String name, String flag, String region, ArrayList<String> currencies, ArrayList<String> languages, ArrayList<Integer> coords) {
         this.name = name;
         this.flag = flag;
         this.region = region;
         this.currencies = currencies;
         this.languages = languages;
         this.coords = coords;
-        this.airports = airports;
+        this.airports = new ArrayList<>();
     }
 
     public Country(){
@@ -92,19 +92,19 @@ public class Country {
         this.languages = languages;
     }
 
-    public ArrayList<int> getCoords() {
+    public ArrayList<Integer> getCoords() {
         return coords;
     }
 
-    public void setCoords(ArrayList<int> coords) {
+    public void setCoords(ArrayList<Integer> coords) {
         this.coords = coords;
     }
 
-    public ArrayList<String> getAirports() {
+    public List<Airport> getAirports() {
         return airports;
     }
 
-    public void setAirports(ArrayList<String> airports) {
+    public void setAirports(List<Airport> airports) {
         this.airports = airports;
     }
 
