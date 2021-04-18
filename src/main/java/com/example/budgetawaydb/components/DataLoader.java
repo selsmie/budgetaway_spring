@@ -25,7 +25,6 @@ public class DataLoader implements ApplicationRunner {
 
     @Autowired
     FlightRepository flightRepository;
-
     public DataLoader() {
 
     }
@@ -47,7 +46,7 @@ public class DataLoader implements ApplicationRunner {
 
         ArrayList<String> randomLanguages = new ArrayList<String>();
         randomLanguages.add("random");
-        Country country2 = new Country("England", "Flag", "Europe", randomLanguages);
+        Country country2 = new Country("Scotland", "Flag", "Europe", randomLanguages);
         countryRepository.save(country2);
     }
 }
