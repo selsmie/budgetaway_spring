@@ -29,16 +29,16 @@ public class CountryController {
         }
 
 //        if (language != null) {
-//            return new ResponseEntity(countryRepository.findByLanguagesContaining(language), HttpStatus.OK);
+//            return new ResponseEntity(countryRepository.findByLanguages_String(language), HttpStatus.OK);
 //        }
 
 
-        if (language != null) {
-            List<Country> countries = countryRepository.findAll();
-            List<Country> filtered = new ArrayList<>();
-            countries.forEach(country -> filtered.add(country.checkLanguage(language)));
-            return new ResponseEntity(filtered, HttpStatus.OK);
-        }
+//        if (language != null) {
+//            List<Country> countries = countryRepository.findAll();
+//            List<Country> filtered = new ArrayList<>();
+//            countries.forEach(country -> filtered.add(country.checkLanguage(language)));
+//            return new ResponseEntity(filtered, HttpStatus.OK);
+//        }
         return new ResponseEntity(countryRepository.findAll(), HttpStatus.OK);
     }
 

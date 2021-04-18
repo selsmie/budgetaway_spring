@@ -9,7 +9,7 @@ public interface CountryRepository extends JpaRepository<Country, Long>{
 
     List<Country> findByRegion(String region);
 
-//    List<Country> findByLanguagesContaining(String language);
+//    List<Country> findByLanguages_String(String language);
 
 //    List<Country> findByRegionAndLanguages(String region, String language);
 
