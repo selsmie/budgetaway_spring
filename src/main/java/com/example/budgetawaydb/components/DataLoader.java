@@ -11,7 +11,6 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
-import javax.xml.crypto.Data;
 import java.util.ArrayList;
 
 @Component
@@ -30,8 +29,8 @@ public class DataLoader implements ApplicationRunner {
     }
 
     public void run(ApplicationArguments args) {
-        ArrayList<String> englandLanguages = new ArrayList<String>();
-        englandLanguages.add("spanish");
+        ArrayList<String> englandLanguages = new ArrayList<>();
+        englandLanguages.add("spanish" );
         Country country1 = new Country("England", "Flag", "Europe", englandLanguages);
         countryRepository.save(country1);
 

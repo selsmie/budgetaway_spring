@@ -2,6 +2,7 @@ package com.example.budgetawaydb.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.sun.tools.internal.xjc.Language;
 import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
@@ -58,7 +59,6 @@ public class Country {
 
 
    public Country(){
-
     }
 
     public String getName() {
