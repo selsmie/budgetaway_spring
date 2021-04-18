@@ -50,7 +50,7 @@ public class CountryController {
     @PutMapping(value = "countries/{id}")
     public ResponseEntity<Country> putCountry(@RequestBody Country country, @PathVariable Long id){
         Country foundCountry = countryRepository.findById(id).get();
-        foundCountry.setAirports(country.getAirports());
+        foundCountry.setName(country.getName());
         countryRepository.save(foundCountry);
         return new ResponseEntity<>(foundCountry, HttpStatus.OK);
     }
