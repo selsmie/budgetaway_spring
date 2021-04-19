@@ -14,10 +14,10 @@ public class Flight {
     @Column(name = "airline")
     private String airline;
 
-    @Column(name = "arrivalTime")
+    @Column(name = "arrival_time")
     private Date arrivalTime;
 
-    @Column(name = "departureTime")
+    @Column(name = "departure_time")
     private Date departureTime;
 
     @Column(name = "price")

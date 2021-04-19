@@ -2,7 +2,6 @@ package com.example.budgetawaydb.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.sun.tools.internal.xjc.Language;
 import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
@@ -29,36 +28,57 @@ public class Country {
     @Column(name = "currencies")
     private ArrayList<String> currencies;
 
-    @Column(name = "languages")
-    private ArrayList<String> languages;
+    @ManyToMany(cascade=CascadeType.ALL)
+    @JoinTable(
+            name = "countries_languages",
+            joinColumns = { @JoinColumn(
+                    name = "country_id",
+                    nullable = false,
+                    updatable = false)
+            },
+            inverseJoinColumns = { @JoinColumn(
+                    name = "language_id",
+                    nullable = false,
+                    updatable = false)
+            }
+    )
+    private List<Language> languages;
 
-    @Column(name = "coordinates")
-    private ArrayList<Integer> coords;
+    private int latitude;
+
+    private int longitude;
 
    @OneToMany(mappedBy = "country")
    @JsonIgnoreProperties({"country"})
    @Cascade(org.hibernate.annotations.CascadeType.DELETE)
    private List<Airport> airports;
 
-    public Country(String name, String flag, String region, ArrayList<String> currencies, ArrayList<String> languages, ArrayList<Integer> coords) {
+    public Country(String name, String flag, String region, ArrayList<String> currencies, List<Language> languages, int latitude, int longitude, List<Airport> airports) {
         this.name = name;
         this.flag = flag;
         this.region = region;
         this.currencies = currencies;
         this.languages = languages;
-        this.coords = coords;
-        this.airports = new ArrayList<>();
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.airports = airports;
     }
 
-    public Country(String name, String flag, String region, ArrayList<String> languages) {
+    public Country(String name, String flag, String region, ArrayList<Language> languages, int latitude, int longitude){
         this.name = name;
         this.flag = flag;
         this.region = region;
         this.languages = languages;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
+    public Long getId() {
+        return id;
+    }
 
-   public Country(){
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -93,20 +113,28 @@ public class Country {
         this.currencies = currencies;
     }
 
-    public ArrayList<String> getLanguages() {
+    public List<Language> getLanguages() {
         return languages;
     }
 
-    public void setLanguages(ArrayList<String> languages) {
+    public void setLanguages(List<Language> languages) {
         this.languages = languages;
     }
 
-    public ArrayList<Integer> getCoords() {
-        return coords;
+    public int getLatitude() {
+        return latitude;
     }
 
-    public void setCoords(ArrayList<Integer> coords) {
-        this.coords = coords;
+    public void setLatitude(int latitude) {
+        this.latitude = latitude;
+    }
+
+    public int getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(int longitude) {
+        this.longitude = longitude;
     }
 
     public List<Airport> getAirports() {
@@ -115,21 +143,6 @@ public class Country {
 
     public void setAirports(List<Airport> airports) {
         this.airports = airports;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Country checkLanguage(String searchLanguage){
-        if (this.getLanguages().contains(searchLanguage)) {
-            return this;
-        }
-        return null;
     }
 
 }
