@@ -8,11 +8,10 @@ import java.util.List;
 
 public interface CountryRepository extends JpaRepository<Country, Long>{
 
-    List<Country> findByRegion(String region);
+    List<Country> findByRegionIgnoreCase(String region);
 
-    List<Country> findByLanguagesName(String language);
+    List<Country> findByLanguagesNameIgnoreCase(String language);
 
-//    List<Country> findByRegionAndLanguages(String region, String language);
+    List<Country> findByRegionAndLanguagesNameAllIgnoreCase(String region, String language);
 
 }
-

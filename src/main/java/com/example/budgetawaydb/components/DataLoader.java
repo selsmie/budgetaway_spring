@@ -70,7 +70,7 @@ public class DataLoader implements ApplicationRunner {
         ArrayList<Language> randomLanguages = new ArrayList<>();
         randomLanguages.add(language1);
 
-        Country country2 = new Country("Scotland","flag", "Europe", englandCurrency2, randomLanguages, 10, 14);
+        Country country2 = new Country("Scotland","flag", "Scotland", englandCurrency2, randomLanguages, 10, 14);
         countryRepository.save(country2);
     }
 }

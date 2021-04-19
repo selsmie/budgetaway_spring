@@ -22,17 +22,15 @@ public class CountryController {
             @RequestParam(required = false, name="region") String region,
             @RequestParam(required = false, name="language") String language
             ) {
-//        if (region != null && language != null) {
-//            return new ResponseEntity(countryRepository.findByRegionAndLanguages(region, language), HttpStatus.OK);
-//        }
+        if (region != null && language != null) {
+            return new ResponseEntity(countryRepository.findByRegionAndLanguagesNameAllIgnoreCase(region, language), HttpStatus.OK);
+        }
         if (region != null) {
-            return new ResponseEntity(countryRepository.findByRegion(region), HttpStatus.OK);
+            return new ResponseEntity(countryRepository.findByRegionIgnoreCase(region), HttpStatus.OK);
         }
-
         if (language != null) {
-            return new ResponseEntity(countryRepository.findByLanguagesName(language), HttpStatus.OK);
+            return new ResponseEntity(countryRepository.findByLanguagesNameIgnoreCase(language), HttpStatus.OK);
         }
-
         return new ResponseEntity(countryRepository.findAll(), HttpStatus.OK);
     }
 
