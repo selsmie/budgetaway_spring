@@ -1,5 +1,6 @@
 package com.example.budgetawaydb.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
@@ -18,6 +19,7 @@ public class Language {
     private String name;
 
     @ManyToMany(cascade=CascadeType.ALL)
+    @JsonBackReference
     @JoinTable(
             name = "countries_languages",
             joinColumns = { @JoinColumn(

@@ -1,5 +1,7 @@
 package com.example.budgetawaydb.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +18,7 @@ public class Currency {
     private String name;
 
     @ManyToMany(cascade= CascadeType.ALL)
+    @JsonBackReference
     @JoinTable(
             name = "countries_currencies",
             joinColumns = { @JoinColumn(

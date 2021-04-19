@@ -1,5 +1,6 @@
 package com.example.budgetawaydb.controllers;
 
+import com.example.budgetawaydb.models.Language;
 import com.example.budgetawaydb.models.Country;
 import com.example.budgetawaydb.repositories.CountryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,17 +29,10 @@ public class CountryController {
             return new ResponseEntity(countryRepository.findByRegion(region), HttpStatus.OK);
         }
 
-//        if (language != null) {
-//            return new ResponseEntity(countryRepository.findByLanguages_String(language), HttpStatus.OK);
-//        }
+        if (language != null) {
+            return new ResponseEntity(countryRepository.findByLanguagesName(language), HttpStatus.OK);
+        }
 
-
-//        if (language != null) {
-//            List<Country> countries = countryRepository.findAll();
-//            List<Country> filtered = new ArrayList<>();
-//            countries.forEach(country -> filtered.add(country.checkLanguage(language)));
-//            return new ResponseEntity(filtered, HttpStatus.OK);
-//        }
         return new ResponseEntity(countryRepository.findAll(), HttpStatus.OK);
     }
 
