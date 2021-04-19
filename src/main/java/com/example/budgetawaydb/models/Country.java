@@ -25,8 +25,21 @@ public class Country {
     @Column(name = "region")
     private String region;
 
-    @Column(name = "currencies")
-    private ArrayList<String> currencies;
+    @ManyToMany(cascade=CascadeType.ALL)
+    @JoinTable(
+            name = "countries_currencies",
+            joinColumns = { @JoinColumn(
+                    name = "country_id",
+                    nullable = false,
+                    updatable = false)
+            },
+            inverseJoinColumns = { @JoinColumn(
+                    name = "currency_id",
+                    nullable = false,
+                    updatable = false)
+            }
+    )
+    private List<Currency> currencies;
 
     @ManyToMany(cascade=CascadeType.ALL)
     @JoinTable(
@@ -53,7 +66,7 @@ public class Country {
    @Cascade(org.hibernate.annotations.CascadeType.DELETE)
    private List<Airport> airports;
 
-    public Country(String name, String flag, String region, ArrayList<String> currencies, List<Language> languages, int latitude, int longitude, List<Airport> airports) {
+    public Country(String name, String flag, String region, ArrayList<Currency> currencies, ArrayList<Language> languages, int latitude, int longitude, ArrayList<Airport> airports) {
         this.name = name;
         this.flag = flag;
         this.region = region;
@@ -64,14 +77,18 @@ public class Country {
         this.airports = airports;
     }
 
-    public Country(String name, String flag, String region, ArrayList<Language> languages, int latitude, int longitude){
+    public Country(String name, String flag, String region, ArrayList<Currency> currencies, ArrayList<Language> languages, int latitude, int longitude){
         this.name = name;
         this.flag = flag;
         this.region = region;
         this.languages = languages;
+        this.currencies = currencies;
         this.latitude = latitude;
         this.longitude = longitude;
+
     }
+
+    public Country() {}
 
     public Long getId() {
         return id;
@@ -105,11 +122,11 @@ public class Country {
         this.region = region;
     }
 
-    public ArrayList<String> getCurrencies() {
+    public List<Currency> getCurrencies() {
         return currencies;
     }
 
-    public void setCurrencies(ArrayList<String> currencies) {
+    public void setCurrencies(List<Currency> currencies) {
         this.currencies = currencies;
     }
 
@@ -144,5 +161,4 @@ public class Country {
     public void setAirports(List<Airport> airports) {
         this.airports = airports;
     }
-
 }
