@@ -161,4 +161,8 @@ public class Country {
     public void setAirports(List<Airport> airports) {
         this.airports = airports;
     }
+
+    public void addLanguage(Language newLanguage) {
+        this.languages.add(newLanguage);
+    }
 }

@@ -3,6 +3,7 @@ package com.example.budgetawaydb.controllers;
 import com.example.budgetawaydb.models.Language;
 import com.example.budgetawaydb.models.Country;
 import com.example.budgetawaydb.repositories.CountryRepository;
+import com.example.budgetawaydb.repositories.LanguageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,12 +11,16 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class CountryController {
 
     @Autowired
     CountryRepository countryRepository;
+
+    @Autowired
+    LanguageRepository languageRepository;
 
     @GetMapping(value = "/countries")
     public ResponseEntity getAllCountriesAndFilters(
@@ -49,9 +54,25 @@ public class CountryController {
 
     @PostMapping("/countries")
     public ResponseEntity<List<Country>> postCountry(@RequestBody List<Country> countries) {
+        countries.forEach((newCountry) -> {
+            List<Language> languages = newCountry.getLanguages();
+            languages.forEach((language) -> {
+
+                if (!languageRepository.findOneByName(language).isPresent()) {
+                    languageRepository.save(language);
+                }else{
+                    Long foundLanguage = language.getId();
+                    List<Language> languagesList = languageRepository.findAll();
+                    newCountry.addLanguage(languagesList.getLong(foundLanguage));
+
+//                    Optional<Language> foundLanguageObject = languageRepository.findById(foundLanguage);
+//                    newCountry.addLanguage(foundLanguageObject);
+                }
+
+        })
         countryRepository.saveAll(countries);
         return new ResponseEntity<>(countries, HttpStatus.CREATED);
-    }
+    }}
 
     @DeleteMapping(value = "/countries/{id}")
     public ResponseEntity<List<Country>> deleteCountry(@PathVariable Long id) {
