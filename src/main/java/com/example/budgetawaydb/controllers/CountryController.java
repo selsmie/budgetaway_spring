@@ -4,6 +4,7 @@ import com.example.budgetawaydb.models.Language;
 import com.example.budgetawaydb.models.Country;
 import com.example.budgetawaydb.repositories.CountryRepository;
 import com.example.budgetawaydb.repositories.LanguageRepository;
+import com.example.budgetawaydb.services.CacheService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -54,19 +55,9 @@ public class CountryController {
 
     @PostMapping("/countries")
     public ResponseEntity<List<Country>> postCountry(@RequestBody List<Country> countries) {
-        countries.forEach((newCountry) -> {
-            List<Language>  languages = newCountry.getLanguages();
-            List<Language> dbLanguages = new ArrayList<>();
-            languages.forEach((language) -> {
-                if (languageRepository.findOneByNameIgnoreCase(language.getName()) != null){
-                    dbLanguages.add(languageRepository.findOneByNameIgnoreCase(language.getName()));
-                } else {
-                    languageRepository.save(language);
-                    dbLanguages.add(languageRepository.findOneByNameIgnoreCase(language.getName()));
-                }
-            });
-            newCountry.setLanguages(dbLanguages);
-        });
+        CacheService.languageSaving(countries);
+        CacheService.currencySaving(countries);
+        CacheService.airportSaving(countries);
         countryRepository.saveAll(countries);
         return new ResponseEntity<>(countries, HttpStatus.CREATED);
     }
