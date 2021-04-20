@@ -13,5 +13,4 @@ public interface CountryRepository extends JpaRepository<Country, Long>{
     List<Country> findByLanguagesNameIgnoreCase(String language);
 
     List<Country> findByRegionAndLanguagesNameAllIgnoreCase(String region, String language);
-
 }

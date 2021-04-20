@@ -12,4 +12,5 @@ public interface LanguageRepository extends JpaRepository<Language, Long> {
     Optional<Language> findOneByName(Language language);
     Language findOneByNameIgnoreCase(String name);
 
+    List<Language> findAll();
 }
