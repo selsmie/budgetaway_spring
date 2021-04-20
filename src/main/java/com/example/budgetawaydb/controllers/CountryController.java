@@ -55,24 +55,21 @@ public class CountryController {
     @PostMapping("/countries")
     public ResponseEntity<List<Country>> postCountry(@RequestBody List<Country> countries) {
         countries.forEach((newCountry) -> {
-            List<Language> languages = newCountry.getLanguages();
+            List<Language>  languages = newCountry.getLanguages();
+            List<Language> dbLanguages = new ArrayList<>();
             languages.forEach((language) -> {
-
-                if (!languageRepository.findOneByName(language).isPresent()) {
+                if (languageRepository.findOneByNameIgnoreCase(language.getName()) != null){
+                    dbLanguages.add(languageRepository.findOneByNameIgnoreCase(language.getName()));
+                } else {
                     languageRepository.save(language);
-                }else{
-                    Long foundLanguage = language.getId();
-                    List<Language> languagesList = languageRepository.findAll();
-                    newCountry.addLanguage(languagesList.getLong(foundLanguage));
-
-//                    Optional<Language> foundLanguageObject = languageRepository.findById(foundLanguage);
-//                    newCountry.addLanguage(foundLanguageObject);
+                    dbLanguages.add(languageRepository.findOneByNameIgnoreCase(language.getName()));
                 }
-
-        })
+            });
+            newCountry.setLanguages(dbLanguages);
+        });
         countryRepository.saveAll(countries);
         return new ResponseEntity<>(countries, HttpStatus.CREATED);
-    }}
+    }
 
     @DeleteMapping(value = "/countries/{id}")
     public ResponseEntity<List<Country>> deleteCountry(@PathVariable Long id) {
