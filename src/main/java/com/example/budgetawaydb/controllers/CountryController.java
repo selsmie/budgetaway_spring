@@ -1,8 +1,12 @@
 package com.example.budgetawaydb.controllers;
 
+import com.example.budgetawaydb.models.Airport;
+import com.example.budgetawaydb.models.Currency;
 import com.example.budgetawaydb.models.Language;
 import com.example.budgetawaydb.models.Country;
+import com.example.budgetawaydb.repositories.AirportRepository;
 import com.example.budgetawaydb.repositories.CountryRepository;
+import com.example.budgetawaydb.repositories.CurrencyRepository;
 import com.example.budgetawaydb.repositories.LanguageRepository;
 import com.example.budgetawaydb.services.CacheService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +26,12 @@ public class CountryController {
 
     @Autowired
     LanguageRepository languageRepository;
+
+    @Autowired
+    CurrencyRepository currencyRepository;
+
+    @Autowired
+    AirportRepository airportRepository;
 
     @GetMapping(value = "/countries")
     public ResponseEntity getAllCountriesAndFilters(
@@ -55,10 +65,51 @@ public class CountryController {
 
     @PostMapping("/countries")
     public ResponseEntity<List<Country>> postCountry(@RequestBody List<Country> countries) {
-        CacheService.languageSaving(countries);
-        CacheService.currencySaving(countries);
-        CacheService.airportSaving(countries);
+//        CacheService cacheService = new CacheService(countries);
+//        cacheService.languageSaving();
+//        cacheService.currencySaving();
+//        cacheService.airportSaving();
+        countries.forEach((newCountry) -> {
+            List<Language>  languages = newCountry.getLanguages();
+            List<Language> dbLanguages = new ArrayList<>();
+            languages.forEach((language) -> {
+                if (languageRepository.findOneByNameIgnoreCase(language.getName()) != null){
+                    dbLanguages.add(languageRepository.findOneByNameIgnoreCase(language.getName()));
+                } else {
+                    languageRepository.save(language);
+                    dbLanguages.add(languageRepository.findOneByNameIgnoreCase(language.getName()));
+                }
+            });
+            newCountry.setLanguages(dbLanguages);
+        });
+        countries.forEach((newCountry) -> {
+            List<Currency>  currencies = newCountry.getCurrencies();
+            List<Currency> dbCurrencies = new ArrayList<>();
+            currencies.forEach((currency) -> {
+                if (currencyRepository.findOneByNameIgnoreCase(currency.getName()) != null){
+                    dbCurrencies.add(currencyRepository.findOneByNameIgnoreCase(currency.getName()));
+                } else {
+                    currencyRepository.save(currency);
+                    dbCurrencies.add(currencyRepository.findOneByNameIgnoreCase(currency.getName()));
+                }
+            });
+            newCountry.setCurrencies(dbCurrencies);
+        });
         countryRepository.saveAll(countries);
+        countries.forEach((newCountry) -> {
+            List<Airport>  airports = newCountry.getAirports();
+            List<Airport> dbAirports = new ArrayList<>();
+            airports.forEach((airport) -> {
+                if (airportRepository.findOneByNameIgnoreCase(airport.getName()) != null){
+                    dbAirports.add(airportRepository.findOneByNameIgnoreCase(airport.getName()));
+                } else {
+                    airport.setCountry(newCountry);
+                    airportRepository.save(airport);
+                    dbAirports.add(airportRepository.findOneByNameIgnoreCase(airport.getName()));
+                }
+            });
+            newCountry.setAirports(dbAirports);
+        });
         return new ResponseEntity<>(countries, HttpStatus.CREATED);
     }
 

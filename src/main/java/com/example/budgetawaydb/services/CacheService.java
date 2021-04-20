@@ -7,12 +7,22 @@ import com.example.budgetawaydb.models.Language;
 import com.example.budgetawaydb.repositories.AirportRepository;
 import com.example.budgetawaydb.repositories.CurrencyRepository;
 import com.example.budgetawaydb.repositories.LanguageRepository;
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CacheService {
+@Service
+public class CacheService implements ApplicationContextAware {
+
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+
+    }
 
     @Autowired
     LanguageRepository languageRepository;
@@ -24,6 +34,9 @@ public class CacheService {
     AirportRepository airportRepository;
 
     private List<Country> countries;
+
+    public CacheService() {
+    }
 
     public CacheService(List<Country> countries) {
         this.countries = countries;
@@ -37,8 +50,8 @@ public class CacheService {
         this.countries = countries;
     }
 
-    public void languageSaving(List<Country> countries) {
-        countries.forEach((newCountry) -> {
+    public void languageSaving() {
+        this.countries.forEach((newCountry) -> {
             List<Language>  languages = newCountry.getLanguages();
             List<Language> dbLanguages = new ArrayList<>();
             languages.forEach((language) -> {
@@ -53,8 +66,8 @@ public class CacheService {
         });
     }
 
-    public void currencySaving(List<Country> countries) {
-        countries.forEach((newCountry) -> {
+    public void currencySaving() {
+        this.countries.forEach((newCountry) -> {
             List<Currency>  currencies = newCountry.getCurrencies();
             List<Currency> dbCurrencies = new ArrayList<>();
             currencies.forEach((currency) -> {
@@ -69,8 +82,8 @@ public class CacheService {
         });
     }
 
-    public void airportSaving(List<Country> countries) {
-        countries.forEach((newCountry) -> {
+    public void airportSaving() {
+        this.countries.forEach((newCountry) -> {
             List<Airport>  airports = newCountry.getAirports();
             List<Airport> dbAirports = new ArrayList<>();
             airports.forEach((airport) -> {
@@ -84,4 +97,6 @@ public class CacheService {
             newCountry.setAirports(dbAirports);
         });
     }
+
+
 }

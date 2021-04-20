@@ -26,7 +26,7 @@ public class Airport {
     private List<Flight> flights;
 
     @ManyToOne
-    @JoinColumn(name = "country_id", nullable = false)
+    @JoinColumn(name = "country_id", nullable = true)
     private Country country;
 
     public Airport(String name, Country country) {

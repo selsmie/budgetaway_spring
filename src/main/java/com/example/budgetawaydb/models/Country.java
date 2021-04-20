@@ -57,16 +57,16 @@ public class Country {
     )
     private List<Language> languages;
 
-    private int latitude;
+    private double latitude;
 
-    private int longitude;
+    private double longitude;
 
    @OneToMany(mappedBy = "country")
    @JsonIgnoreProperties({"country"})
    @Cascade(org.hibernate.annotations.CascadeType.DELETE)
    private List<Airport> airports;
 
-    public Country(String name, String flag, String region, ArrayList<Currency> currencies, ArrayList<Language> languages, int latitude, int longitude, ArrayList<Airport> airports) {
+    public Country(String name, String flag, String region, ArrayList<Currency> currencies, ArrayList<Language> languages, double latitude, double longitude, ArrayList<Airport> airports) {
         this.name = name;
         this.flag = flag;
         this.region = region;
@@ -138,7 +138,7 @@ public class Country {
         this.languages = languages;
     }
 
-    public int getLatitude() {
+    public double getLatitude() {
         return latitude;
     }
 
@@ -146,7 +146,7 @@ public class Country {
         this.latitude = latitude;
     }
 
-    public int getLongitude() {
+    public double getLongitude() {
         return longitude;
     }
 
