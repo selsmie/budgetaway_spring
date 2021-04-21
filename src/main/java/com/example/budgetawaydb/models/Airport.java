@@ -29,10 +29,15 @@ public class Airport {
     @JoinColumn(name = "country_id", nullable = true)
     private Country country;
 
-    public Airport(String name, Country country) {
+    @Column(name = "iata")
+    private String iata;
+
+
+    public Airport(String name, Country country, String iata) {
         this.name = name;
         this.flights = new ArrayList<>();
         this.country = country;
+        this.iata = iata;
     }
 
     public Airport() {
@@ -69,5 +74,13 @@ public class Airport {
 
     public void setCountry(Country country) {
         this.country = country;
+    }
+
+    public String getIata() {
+        return iata;
+    }
+
+    public void setIata(String iata) {
+        this.iata = iata;
     }
 }
