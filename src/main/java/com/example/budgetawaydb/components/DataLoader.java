@@ -38,8 +38,8 @@ public class DataLoader implements ApplicationRunner {
 
     public void run(ApplicationArguments args) {
 
-        Wishlist wishlist1 = new Wishlist("France", "Gatwick", "Paris", 3.00, 120.00);
-        wishlistRepository.save(wishlist1);
+//        Wishlist wishlist1 = new Wishlist("France", "Gatwick", "Paris", 3.00, 120.00);
+//        wishlistRepository.save(wishlist1);
 
 //        Currency currency1 = new Currency("pences");
 //        ArrayList<Currency> englandCurrency = new ArrayList<>();

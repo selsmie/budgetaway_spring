@@ -30,8 +30,8 @@ public class WishlistController {
     }
 
     @PostMapping(value = "/wishlists")
-    public ResponseEntity<List<Wishlist>> postWishlist(@RequestBody List<Wishlist> wishlists) {
-        wishlistRepository.saveAll(wishlists);
+    public ResponseEntity<Wishlist> postWishlist(@RequestBody Wishlist wishlists) {
+        wishlistRepository.save(wishlists);
         return new ResponseEntity<>(wishlists, HttpStatus.CREATED);
     }
 
