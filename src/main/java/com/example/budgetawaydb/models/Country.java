@@ -57,16 +57,21 @@ public class Country {
     )
     private List<Language> languages;
 
+    @Column(name = "latitude")
     private double latitude;
 
+    @Column(name = "longitude")
     private double longitude;
+
+    @Column(name = "timezone")
+    private int timezone;
 
    @OneToMany(mappedBy = "country")
    @JsonIgnoreProperties({"country"})
    @Cascade(org.hibernate.annotations.CascadeType.DELETE)
    private List<Airport> airports;
 
-    public Country(String name, String flag, String region, ArrayList<Currency> currencies, ArrayList<Language> languages, double latitude, double longitude, ArrayList<Airport> airports) {
+    public Country(String name, String flag, String region, ArrayList<Currency> currencies, ArrayList<Language> languages, double latitude, double longitude, ArrayList<Airport> airports, int timezone) {
         this.name = name;
         this.flag = flag;
         this.region = region;
@@ -75,6 +80,7 @@ public class Country {
         this.latitude = latitude;
         this.longitude = longitude;
         this.airports = airports;
+        this.timezone = timezone;
     }
 
     public Country(String name, String flag, String region, ArrayList<Currency> currencies, ArrayList<Language> languages, int latitude, int longitude){
@@ -138,21 +144,6 @@ public class Country {
         this.languages = languages;
     }
 
-    public double getLatitude() {
-        return latitude;
-    }
-
-    public void setLatitude(int latitude) {
-        this.latitude = latitude;
-    }
-
-    public double getLongitude() {
-        return longitude;
-    }
-
-    public void setLongitude(int longitude) {
-        this.longitude = longitude;
-    }
 
     public List<Airport> getAirports() {
         return airports;
@@ -160,5 +151,29 @@ public class Country {
 
     public void setAirports(List<Airport> airports) {
         this.airports = airports;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    public int getTimezone() {
+        return timezone;
+    }
+
+    public void setTimezone(int timezone) {
+        this.timezone = timezone;
     }
 }
