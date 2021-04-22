@@ -1,10 +1,6 @@
 package com.example.budgetawaydb.components;
 
-import com.example.budgetawaydb.models.Airport;
-import com.example.budgetawaydb.models.Country;
-import com.example.budgetawaydb.models.Flight;
-import com.example.budgetawaydb.models.Language;
-import com.example.budgetawaydb.models.Currency;
+import com.example.budgetawaydb.models.*;
 import com.example.budgetawaydb.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
@@ -32,12 +28,18 @@ public class DataLoader implements ApplicationRunner {
     @Autowired
     CurrencyRepository currencyRepository;
 
+    @Autowired
+    WishlistRepository wishlistRepository;
+
 
     public DataLoader() {
 
     }
 
     public void run(ApplicationArguments args) {
+
+        Wishlist wishlist1 = new Wishlist("France", "Gatwick", "Paris", 3.00, 120.00);
+        wishlistRepository.save(wishlist1);
 
 //        Currency currency1 = new Currency("pences");
 //        ArrayList<Currency> englandCurrency = new ArrayList<>();
