@@ -26,12 +26,36 @@ public class Wishlist {
     @Column(name = "price")
     private double price;
 
-    public Wishlist(String name, String depAirport, String arrAirport, double duration, double price) {
+    @Column(name = "airline")
+    private String airline;
+
+    @Column(name = "number")
+    private String number;
+
+    public String getAirline() {
+        return airline;
+    }
+
+    public void setAirline(String airline) {
+        this.airline = airline;
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
+
+    public Wishlist(String name, String depAirport, String arrAirport, double duration, double price, String airline, String number) {
         this.name = name;
         this.depAirport = depAirport;
         this.arrAirport = arrAirport;
         this.duration = duration;
         this.price = price;
+        this.airline = airline;
+        this.number = number;
     }
 
     public Wishlist() {
