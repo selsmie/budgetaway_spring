@@ -11,7 +11,9 @@ import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.IntStream;
 
 @RestController
 public class WishlistController {
@@ -51,6 +53,17 @@ public class WishlistController {
     public ResponseEntity<Wishlist> deleteWishlist(@PathVariable Long id) {
         wishlistRepository.deleteById(id);
         return new ResponseEntity(wishlistRepository.findAll(), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/wishlists/cost")
+    public ResponseEntity getWishlistCost() {
+        List<Wishlist> fullList = new ArrayList<>();
+        fullList.addAll(wishlistRepository.findAll());
+        double totalCost = 0;
+        for (Wishlist wishlist : fullList) {
+            totalCost += wishlist.getPrice();
+        }
+        return new ResponseEntity(totalCost, HttpStatus.OK);
     }
 }
 
