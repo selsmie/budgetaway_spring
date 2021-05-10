@@ -65,10 +65,6 @@ public class CountryController {
 
     @PostMapping("/countries")
     public ResponseEntity<List<Country>> postCountry(@RequestBody List<Country> countries) {
-//        CacheService cacheService = new CacheService(countries);
-//        cacheService.languageSaving();
-//        cacheService.currencySaving();
-//        cacheService.airportSaving();
         countries.forEach((newCountry) -> {
             List<Language>  languages = newCountry.getLanguages();
             List<Language> dbLanguages = new ArrayList<>();
