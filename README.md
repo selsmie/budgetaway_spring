@@ -3,6 +3,8 @@
 Group project using React and Spring frameworks.
 Required Spring application located at: https://github.com/selsmie/budgetaway_react
 
+Live application on Heroku: https://budgetaway-react.herokuapp.com
+
 Start the server by running the application (using IntelliJ IDEA CE)
 
 ## MVP
